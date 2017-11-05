@@ -1,48 +1,32 @@
 $.get('https://www.reddit.com/r/aww/.json', function (data) {
 
-    // get top 10 posts (skip 1)
-    var blogPosts = data.data.children; // main array
+    var blogPosts = data.data.children;
 
-    for (var i = 1; i < 11; i++) {
+    for (var i = 1; i < 11; i++) { //skip first blog
 
         var article = blogPosts[i];
-        var thumbnail = article.data.thumbnail;
-        var title = article.data.title;
-        var link = article.data.domain;
+        var blogEl = $("<section>");
 
-        //main page div
-        var mainPageBox = $("<div id='mainPage'>");
-
-        //individual article divs
         var blogContainer = $("<div id='blogContainer'>");
+        blogEl.append(blogContainer);
 
-        mainPageBox.append(blogContainer);
-
-
-        //thumbnail divs
-        var photo = $("<div id='photo'>");
-
-        blogContainer.append(photo);
-
-
-        //div holding both title and links
         var textContent = $("<div id='textContent'>");
-
         blogContainer.append(textContent);
 
+        var thumbnail = article.data.thumbnail;
+        var photo = $("<div id='photo'>");
+        photo.append("<img src=" + thumbnail + ">");
+        blogContainer.append(photo);
 
-        //div holding titles
-        var blogTitle = $("<div id='title'>");
-        blogTitle.text(blogPosts.title);
+        var title = article.data.title;
+        var blogTitle = $("<h3 id='title'>");
+        blogTitle.append(title);
         textContent.append(blogTitle);
 
+        var link = article.data.domain;
+        var blogLink = $("<a href='" + link + "'>Want to read the full blog? Click me!</a>");
+        textContent.append(blogLink);
 
-        //div holding linkss
-        var link = $("<div id='link'>");
-
-        textContent.append(link);
-
-
-        $("#mainPageBox").append(mainPageBox);
+        $("#mainPageBox").append(blogEl);
     }
 });
