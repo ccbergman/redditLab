@@ -23,7 +23,7 @@ $.get('https://www.reddit.com/r/aww/.json', function (data) {
         blogTitle.append(title);
         textContent.append(blogTitle);
 
-        var link = article.data.domain;
+        var link = article.data.url;
         var blogLink = $("<a href='" + link + "'>Want to read the full blog? Click me!</a>");
         textContent.append(blogLink);
 
